@@ -126,6 +126,64 @@
             margin: 0;
         }
 
+        /* Control Buttons */
+        .control-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto;
+            padding: 0 10px;
+        }
+
+        .control-btn {
+            background-color: rgba(128, 128, 128, 0.2);
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 20px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .control-btn:active {
+            background-color: rgba(128, 128, 128, 0.4);
+            transform: scale(0.95);
+        }
+
+        .control-btn.up {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .control-btn.left {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .control-btn.right {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        .control-btn.down {
+            grid-column: 2;
+            grid-row: 3;
+        }
+
+        /* Hide control buttons on desktop */
+        @media (min-width: 1024px) {
+            .control-buttons {
+                display: none;
+            }
+        }
+
         @media (max-width: 480px) {
             body {
                 padding: 10px;
@@ -137,6 +195,15 @@
 
             button {
                 padding: 10px 20px;
+            }
+
+            .control-buttons {
+                margin: 15px auto;
+            }
+
+            .control-btn {
+                padding: 12px;
+                font-size: 18px;
             }
         }
     </style>
@@ -151,6 +218,12 @@
             <button onclick="restartGame()">Play Again</button>
         </div>
     </div>
+    <div class="control-buttons">
+        <button class="control-btn up" aria-label="Move Up">↑</button>
+        <button class="control-btn left" aria-label="Move Left">←</button>
+        <button class="control-btn right" aria-label="Move Right">→</button>
+        <button class="control-btn down" aria-label="Move Down">↓</button>
+    </div>
     <div class="instructions">
         <h3>How to Play</h3>
         <div class="controls">
@@ -160,7 +233,7 @@
             </div>
             <div class="control-group">
                 <h4>Mobile</h4>
-                <p>Swipe in any direction to move the snake</p>
+                <p>Use swipe gestures or control buttons to move the snake</p>
             </div>
         </div>
     </div>
@@ -370,6 +443,46 @@
             clearInterval(gameLoop);
             gameLoop = setInterval(drawGame, gameSpeed);
         }
+
+        // Touch controls
+        canvas.addEventListener('touchstart', handleTouchStart, false);
+        canvas.addEventListener('touchmove', handleTouchMove, false);
+
+        // Control buttons
+        const controlButtons = document.querySelectorAll('.control-btn');
+        controlButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const direction = e.target.classList[1];
+                
+                switch(direction) {
+                    case 'up':
+                        if (dy !== 1) { // Not going down
+                            dx = 0;
+                            dy = -1;
+                        }
+                        break;
+                    case 'down':
+                        if (dy !== -1) { // Not going up
+                            dx = 0;
+                            dy = 1;
+                        }
+                        break;
+                    case 'left':
+                        if (dx !== 1) { // Not going right
+                            dx = -1;
+                            dy = 0;
+                        }
+                        break;
+                    case 'right':
+                        if (dx !== -1) { // Not going left
+                            dx = 1;
+                            dy = 0;
+                        }
+                        break;
+                }
+            });
+        });
 
         // Start game
         gameLoop = setInterval(drawGame, gameSpeed);
