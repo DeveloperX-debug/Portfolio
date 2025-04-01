@@ -3,344 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Prem Saraf - Portfolio</title>
     <style>
+        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+        html {
+            scroll-behavior: smooth;
         }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #4a4a4a;
+        }
+
+        a {
+            color: #007aff; /* Apple blue */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px; /* Rounded images */
+        }
+
+        /* Glassmorphism Section Style */
+        .glass-section {
+            background: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%); /* Safari support */
+            border-radius: 25px; /* Increased rounding */
+            border: 1px solid rgba(209, 213, 219, 0.4); /* Subtle border */
+            padding: clamp(20px, 5vw, 40px); /* Responsive padding */
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); /* Soft shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-section:hover {
+             /* Optional: subtle lift effect */
+             /* transform: translateY(-5px); */
+             /* box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2); */
+        }
+
+        /* Header/Nav */
         header {
-            background-color: #1a1a1a;
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+            /* Keeping header simple, maybe add glass effect later if desired */
+            padding: 20px 0;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a1a1a;
         }
 
         nav ul {
-            display: flex;
-            justify-content: center;
             list-style: none;
-            gap: 2rem;
+            display: flex;
         }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            font-weight: 500;
             transition: color 0.3s ease;
+             color: #333;
+        }
+         nav ul li a:hover {
+            color: #007aff;
         }
 
-        nav a:hover {
-            color: #007bff;
-        }
 
-        main {
-            margin-top: 60px;
-        }
-
-        #hero {
-            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
-            color: white;
-            padding: 6rem 2rem;
+        /* Hero Section */
+        .hero {
             text-align: center;
+            padding: 60px 20px; /* More padding */
         }
 
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 3.5rem); /* Responsive font size */
+            margin-bottom: 0.5rem;
+             font-weight: 700;
         }
 
-        .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
         }
 
-        .tagline {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+        /* About Section */
+        .about {
+             text-align: center;
         }
 
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
+         .about h2 {
+             margin-bottom: 2rem;
+         }
 
-        .btn {
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .primary {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .secondary {
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        section {
-            padding: 4rem 2rem;
-        }
-
-        #about {
-            background-color: white;
-        }
-
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .about-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+        /* Projects Section */
+        .projects h2 {
             text-align: center;
+            margin-bottom: 2rem;
         }
 
-        .skills {
-            margin-top: 2rem;
-        }
-
-        .skills h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .skills ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            list-style: none;
-        }
-
-        .skills li {
-            background-color: #f0f0f0;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 1rem;
-        }
-
-        #projects {
-            background-color: #f8f9fa;
-        }
-
-        .projects-grid {
+        .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+            gap: 30px;
         }
 
         .project-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            /* Inherit glass style, but maybe slightly less blur or different background */
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px) saturate(150%);
+             -webkit-backdrop-filter: blur(10px) saturate(150%);
+            border-radius: 20px;
+            border: 1px solid rgba(209, 213, 219, 0.5);
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; /* Ensure image corners are rounded */
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
         }
 
         .project-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+            margin-bottom: 1rem;
+             width: 100%;
+             height: 200px; /* Fixed height for consistency */
+             object-fit: cover; /* Ensure image covers the area */
+             border-radius: 15px; /* Rounded corners top */
         }
 
         .project-card h3 {
-            font-size: 1.5rem;
-            margin: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
         }
 
-        .project-card p {
-            margin: 0 1rem 1rem;
-            color: #666;
+         .project-card p {
+             font-size: 0.95rem;
+             margin-bottom: 1rem;
+             color: #4a4a4a;
+         }
+
+        .project-card a.btn {
+             display: inline-block;
+             background-color: #007aff;
+             color: white;
+             padding: 10px 20px;
+             border-radius: 25px; /* Pill shape */
+             font-weight: 500;
+             transition: background-color 0.3s ease, transform 0.2s ease;
+             margin-top: auto; /* Push button to bottom if in flex container */
         }
 
-        .project-links {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem;
-        }
+         .project-card a.btn:hover {
+             background-color: #0056b3;
+             transform: scale(1.05);
+         }
 
-        .project-links a {
-            color: #007bff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .project-links a:hover {
-            text-decoration: underline;
-        }
-
-        #contact {
-            background-color: white;
-        }
-
-        .contact-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .contact-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+        /* Contact Section */
+        .contact {
             text-align: center;
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
+        .contact h2 {
+            margin-bottom: 1rem;
         }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
+        .contact p{
+             margin-bottom: 2rem;
+             font-size: 1.1rem;
         }
 
         .social-links a {
-            color: #333;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+            margin: 0 15px;
+            display: inline-block;
+             transition: transform 0.3s ease;
+        }
+         .social-links a:hover {
+             transform: scale(1.15);
+         }
+
+        .social-links img {
+            width: 32px; /* Adjust icon size */
+            height: 32px;
+            vertical-align: middle;
+             border-radius: 8px; /* Slightly rounded icons */
         }
 
-        .social-links a:hover {
-            color: #007bff;
-        }
-
+        /* Footer */
         footer {
-            background-color: #1a1a1a;
-            color: white;
             text-align: center;
-            padding: 2rem;
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.9rem;
+            color: #666;
         }
 
-        /* Responsive Design */
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
-            nav ul {
-                gap: 1rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .tagline {
-                font-size: 1.2rem;
-            }
-
-            .cta-buttons {
+             nav {
                 flex-direction: column;
+                 align-items: flex-start;
+             }
+             nav ul {
+                 margin-top: 15px;
+                 padding-left: 0; /* Remove padding */
+             }
+              nav ul li {
+                  margin-left: 0;
+                  margin-right: 15px; /* Add right margin */
+             }
+            .hero {
+                padding: 40px 15px;
             }
-
-            .btn {
-                width: 100%;
-                text-align: center;
+             .project-grid {
+                grid-template-columns: 1fr; /* Stack cards on smaller screens */
             }
-
-            section {
-                padding: 3rem 1rem;
-            }
-
-            .about-content h2,
-            .contact-content h2 {
-                font-size: 2rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .social-links {
-                gap: 1.5rem;
-            }
+             .glass-section {
+                 padding: 25px;
+                 border-radius: 20px;
+             }
+             .project-card {
+                 padding: 20px;
+                 border-radius: 15px;
+             }
         }
 
-        @media (max-width: 480px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .tagline {
-                font-size: 1rem;
-            }
-
-            .skills ul {
-                justify-content: center;
-            }
-
-            .project-card img {
-                height: 180px;
-            }
-
-            .project-links {
-                flex-direction: column;
-            }
-
-            .social-links {
-                flex-wrap: wrap;
-            }
-        }
     </style>
 </head>
 <body>
-    <header>
+    <header class="container">
         <nav>
+            <div class="logo">Prem Saraf</div>
             <ul>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -349,85 +292,61 @@
         </nav>
     </header>
 
-    <main>
-        <section id="hero">
-            <div class="hero-content">
-                <h1>Prem Saraf</h1>
-                <p class="tagline">Full Stack Developer | Problem Solver | Tech Enthusiast</p>
-                <div class="cta-buttons">
-                    <a href="#projects" class="btn primary">View Projects</a>
-                    <a href="#contact" class="btn secondary">Contact Me</a>
-                </div>
-            </div>
+    <main class="container">
+        <!-- Hero Section -->
+        <section id="hero" class="hero glass-section">
+            <h1>Hi, I'm Prem Saraf</h1>
+            <p>A passionate developer exploring the world of web development and creating engaging digital experiences.</p>
+            <a href="#projects" class="btn project-card-btn">View My Work</a> <!-- Simple button style reuse -->
         </section>
 
-        <section id="about">
-            <div class="about-content">
-                <h2>About Me</h2>
-                <p>I'm a passionate developer with expertise in creating innovative solutions. With a strong foundation in both front-end and back-end development, I strive to build applications that make a difference.</p>
-                <div class="skills">
-                    <h3>Skills</h3>
-                    <ul>
-                        <li>HTML/CSS</li>
-                        <li>JavaScript</li>
-                        <li>Python</li>
-                        <li>React</li>
-                        <li>Node.js</li>
-                    </ul>
-                </div>
-            </div>
+        <!-- About Section -->
+        <section id="about" class="about glass-section">
+            <h2>About Me</h2>
+            <p>I am currently a student diving deep into web technologies. I enjoy building interactive applications and learning new things every day. My journey involves exploring both front-end aesthetics and back-end logic.</p>
+            <!-- Add more about yourself here if you like -->
         </section>
 
-        <section id="projects">
+        <!-- Projects Section -->
+        <section id="projects" class="projects glass-section">
             <h2>My Projects</h2>
-            <div class="projects-grid">
+            <div class="project-grid">
                 <div class="project-card">
-                    <div style="background-color: #1a1a1a; padding: 20px; height: 200px; display: flex; align-items: center; justify-content: center;">
-                        <svg width="200" height="160" viewBox="0 0 100 80">
-                            <!-- Pixel art snake recreation -->
-                            <rect width="100%" height="100%" fill="#1a1a1a"/>
-                            <g transform="translate(20,20) scale(2)">
-                                <!-- Snake body pixels -->
-                                <rect x="0" y="0" width="4" height="4" fill="#ff0000"/>
-                                <rect x="4" y="0" width="4" height="4" fill="#ff0000"/>
-                                <rect x="8" y="0" width="4" height="4" fill="#ff0000"/>
-                                <rect x="12" y="0" width="4" height="4" fill="#ff0000"/>
-                                <rect x="16" y="0" width="4" height="4" fill="#ff0000"/>
-                                <rect x="20" y="0" width="4" height="4" fill="#ff0000"/>
-                                <!-- Snake highlights -->
-                                <rect x="2" y="1" width="2" height="2" fill="#ffffff"/>
-                                <rect x="10" y="1" width="2" height="2" fill="#ffffff"/>
-                                <rect x="18" y="1" width="2" height="2" fill="#ffffff"/>
-                            </g>
-                        </svg>
-                    </div>
-                    <h3>Classic Snake Game</h3>
-                    <p>A simple and fun implementation of the classic snake game. Features smooth controls, increasing difficulty, and works on all devices.</p>
-                    <div class="project-links">
-                        <a href="snake-game.html" target="_blank"><i class="fas fa-gamepad"></i> Play Game</a>
-                    </div>
+                    <img src="snake-game-screenshot.png" alt="Snake Game Screenshot"> <!-- Placeholder - Update this path -->
+                    <h3>Cute Snake Game</h3>
+                    <p>A classic Snake game recreated with JavaScript, featuring cute visuals, responsive controls (keyboard, swipe, buttons), and high score tracking.</p>
+                    <a href="snake-game.html" class="btn" target="_blank">Play Game</a>
                 </div>
                 <div class="project-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 2">
-                    <h3>Project 2</h3>
-                    <p>Description of your second project. Explain what it does and what technologies you used.</p>
-                    <div class="project-links">
-                        <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
-                        <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                    </div>
+                     <img src="placeholder-project.png" alt="Project 2 Placeholder"> <!-- Placeholder -->
+                     <h3>Project Title 2</h3>
+                    <p>Description of your second project. What technologies did you use? What problem does it solve?</p>
+                    <a href="#" class="btn">View Project (Link)</a> <!-- Update link -->
                 </div>
-            </div>
+                <div class="project-card">
+                     <img src="placeholder-project.png" alt="Project 3 Placeholder"> <!-- Placeholder -->
+                    <h3>Project Title 3</h3>
+                    <p>Description of your third project. Highlight key features and learnings.</p>
+                    <a href="#" class="btn">View Project (Link)</a> <!-- Update link -->
+                </div>
+                </div>
         </section>
 
-        <section id="contact">
-            <div class="contact-content">
-                <h2>Get in Touch</h2>
-                <div class="social-links">
-                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        <!-- Contact Section -->
+        <section id="contact" class="contact glass-section">
+            <h2>Get In Touch</h2>
+            <p>Feel free to reach out if you'd like to collaborate or just say hi!</p>
+            <div class="social-links">
+                <a href="https://github.com/DeveloperX-debug" target="_blank" rel="noopener noreferrer">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="background-color: white; border-radius: 50%;"> <!-- Added white bg for visibility -->
+                </a>
+                <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" rel="noopener noreferrer"> <!-- Update Link -->
+                    <img src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-In-Bug.png" alt="LinkedIn">
+                </a>
+                <a href="mailto:your-email@example.com"> <!-- Update Email -->
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1200px-Gmail_icon_%282020%29.svg.png" alt="Email">
+                 </a>
                 </div>
-            </div>
         </section>
     </main>
 
