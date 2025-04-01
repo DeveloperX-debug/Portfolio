@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Prem Saraf</h1>
+                <p class="tagline">Full Stack Developer | Problem Solver | Tech Enthusiast</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn primary">View Projects</a>
+                    <a href="#contact" class="btn secondary">Contact Me</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a passionate developer with expertise in creating innovative solutions. With a strong foundation in both front-end and back-end development, I strive to build applications that make a difference.</p>
+                    <div class="skills">
+                        <h3>Skills</h3>
+                        <ul>
+                            <li>HTML/CSS</li>
+                            <li>JavaScript</li>
+                            <li>Python</li>
+                            <li>React</li>
+                            <li>Node.js</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>My Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div style="background-color: #1a1a1a; padding: 20px; height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <svg width="200" height="160" viewBox="0 0 100 80">
+                            <!-- Pixel art snake recreation -->
+                            <rect width="100%" height="100%" fill="#1a1a1a"/>
+                            <g transform="translate(20,20) scale(2)">
+                                <!-- Snake body pixels -->
+                                <rect x="0" y="0" width="4" height="4" fill="#ff0000"/>
+                                <rect x="4" y="0" width="4" height="4" fill="#ff0000"/>
+                                <rect x="8" y="0" width="4" height="4" fill="#ff0000"/>
+                                <rect x="12" y="0" width="4" height="4" fill="#ff0000"/>
+                                <rect x="16" y="0" width="4" height="4" fill="#ff0000"/>
+                                <rect x="20" y="0" width="4" height="4" fill="#ff0000"/>
+                                <!-- Snake highlights -->
+                                <rect x="2" y="1" width="2" height="2" fill="#ffffff"/>
+                                <rect x="10" y="1" width="2" height="2" fill="#ffffff"/>
+                                <rect x="18" y="1" width="2" height="2" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Classic Snake Game</h3>
+                    <p>A minimalist implementation of the classic snake game using HTML5 Canvas. Features a red snake, increasing difficulty, and smooth controls.</p>
+                    <div class="project-links">
+                        <a href="snake-game.html" target="_blank"><i class="fas fa-external-link-alt"></i> Play Game</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/300x200" alt="Project 2">
+                    <h3>Project 2</h3>
+                    <p>Description of your second project. Explain what it does and what technologies you used.</p>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
+                        <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/300x200" alt="Project 3">
+                    <h3>Project 3</h3>
+                    <p>Description of your third project. Explain what it does and what technologies you used.</p>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
+                        <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <div class="contact-content">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn primary">Send Message</button>
+                </form>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Prem Saraf. All rights reserved.</p>
+    </footer>
+</body>
+</html> 
