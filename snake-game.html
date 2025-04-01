@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
+    <title>Cute Snake Game</title>
     <style>
         body {
             display: flex;
@@ -12,9 +12,9 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #1a1a1a;
-            font-family: Arial, sans-serif;
-            color: white;
+            background: linear-gradient(135deg, #ffd6e7 0%, #c1fba4 100%);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            color: #4a4a4a;
         }
 
         #game-container {
@@ -22,13 +22,18 @@
             width: 100%;
             max-width: 400px;
             margin: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         #game-board {
             width: 100%;
             aspect-ratio: 1;
-            background-color: #2a2a2a;
-            border-radius: 10px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
         #score {
@@ -37,30 +42,42 @@
             right: 20px;
             font-size: 24px;
             font-weight: bold;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         #start-btn {
             margin-top: 20px;
-            padding: 10px 30px;
+            padding: 12px 30px;
             font-size: 18px;
-            background-color: #4CAF50;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         #start-btn:hover {
-            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
         }
 
         #instructions {
             margin-top: 20px;
             padding: 20px;
-            background-color: #2a2a2a;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
             max-width: 400px;
             text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #instructions h2 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
         }
 
         .control-buttons {
@@ -73,11 +90,17 @@
         .control-btn {
             padding: 15px;
             font-size: 24px;
-            background-color: #333;
-            color: white;
+            background: linear-gradient(45deg, #ffd6e7, #ffb6c1);
+            color: #4a4a4a;
             border: none;
-            border-radius: 5px;
+            border-radius: 15px;
             cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
         }
 
         @media (max-width: 768px) {
@@ -167,11 +190,21 @@
         // Draw functions
         function drawSnake() {
             snake.forEach((segment, index) => {
-                ctx.fillStyle = index === 0 ? '#ff4444' : '#ff0000';
-                ctx.fillRect(segment.x * CELL_SIZE, segment.y * CELL_SIZE, CELL_SIZE - 1, CELL_SIZE - 1);
-                
-                // Add eyes to head
+                // Draw snake body
+                ctx.fillStyle = index === 0 ? '#ff6b6b' : '#ff8e8e';
+                ctx.beginPath();
+                ctx.roundRect(
+                    segment.x * CELL_SIZE,
+                    segment.y * CELL_SIZE,
+                    CELL_SIZE - 2,
+                    CELL_SIZE - 2,
+                    8
+                );
+                ctx.fill();
+
+                // Draw snake head with cute face
                 if (index === 0) {
+                    // Eyes
                     ctx.fillStyle = 'white';
                     const eyeSize = CELL_SIZE / 6;
                     const eyeOffset = CELL_SIZE / 4;
@@ -204,24 +237,59 @@
                             break;
                     }
                     
+                    // Draw eyes
                     ctx.beginPath();
                     ctx.arc(leftEyeX, leftEyeY, eyeSize, 0, Math.PI * 2);
                     ctx.arc(rightEyeX, rightEyeY, eyeSize, 0, Math.PI * 2);
                     ctx.fill();
+
+                    // Draw pupils
+                    ctx.fillStyle = '#4a4a4a';
+                    ctx.beginPath();
+                    ctx.arc(leftEyeX, leftEyeY, eyeSize/2, 0, Math.PI * 2);
+                    ctx.arc(rightEyeX, rightEyeY, eyeSize/2, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Draw cute smile
+                    ctx.strokeStyle = '#4a4a4a';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(
+                        segment.x * CELL_SIZE + CELL_SIZE/2,
+                        segment.y * CELL_SIZE + CELL_SIZE/2,
+                        CELL_SIZE/4,
+                        0,
+                        Math.PI
+                    );
+                    ctx.stroke();
                 }
             });
         }
 
         function drawFood() {
-            ctx.fillStyle = '#00ff00';
+            // Draw cute apple
+            const x = food.x * CELL_SIZE + CELL_SIZE/2;
+            const y = food.y * CELL_SIZE + CELL_SIZE/2;
+            const size = CELL_SIZE/2 - 2;
+
+            // Apple body
+            ctx.fillStyle = '#ff6b6b';
             ctx.beginPath();
-            ctx.arc(
-                food.x * CELL_SIZE + CELL_SIZE / 2,
-                food.y * CELL_SIZE + CELL_SIZE / 2,
-                CELL_SIZE / 2 - 1,
-                0,
-                Math.PI * 2
-            );
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Apple leaf
+            ctx.fillStyle = '#4CAF50';
+            ctx.beginPath();
+            ctx.moveTo(x, y - size);
+            ctx.quadraticCurveTo(x + size/2, y - size - size/2, x, y - size - size/2);
+            ctx.quadraticCurveTo(x - size/2, y - size - size/2, x, y - size);
+            ctx.fill();
+
+            // Apple shine
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.beginPath();
+            ctx.arc(x - size/3, y - size/3, size/4, 0, Math.PI * 2);
             ctx.fill();
         }
 
@@ -265,14 +333,14 @@
         function gameOver() {
             clearInterval(gameLoop);
             isGameRunning = false;
-            startBtn.textContent = 'Restart Game';
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+            startBtn.textContent = 'Play Again';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = 'white';
-            ctx.font = '30px Arial';
+            ctx.font = 'bold 30px Comic Sans MS';
             ctx.textAlign = 'center';
             ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
-            ctx.font = '20px Arial';
+            ctx.font = 'bold 20px Comic Sans MS';
             ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 40);
         }
 
