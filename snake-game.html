@@ -186,7 +186,7 @@
 
         // Game constants
         const GRID_SIZE = 20;
-        const INITIAL_SPEED = 150;
+        const INITIAL_SPEED = 120; // Slightly faster initial speed for better responsiveness
         const MIN_SPEED = 50;
 
         // Game state
@@ -376,9 +376,20 @@
                 case 'right': head.x++; break;
             }
 
-            // Check for collisions
-            if (head.x < 0 || head.x >= GRID_SIZE ||
-                head.y < 0 || head.y >= GRID_SIZE ||
+            // Wall Teleportation
+            if (head.x < 0) {
+                head.x = GRID_SIZE - 1;
+            } else if (head.x >= GRID_SIZE) {
+                head.x = 0;
+            }
+            if (head.y < 0) {
+                head.y = GRID_SIZE - 1;
+            } else if (head.y >= GRID_SIZE) {
+                head.y = 0;
+            }
+
+            // Check for self-collision
+            if (
                 // Check collision with snake body (excluding the new head)
                 snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
                 gameOver();
@@ -475,11 +486,13 @@
         let touchStartY = 0;
 
         canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent default scroll behavior
             touchStartX = e.touches[0].clientX;
             touchStartY = e.touches[0].clientY;
         });
 
         canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Prevent default scroll behavior
             if (!isGameRunning) return;
             
             const touchEndX = e.touches[0].clientX;
@@ -502,18 +515,20 @@
             btn.addEventListener('click', () => {
                 if (!isGameRunning) return;
                 
+                const requestedDirection = btn.id.split('-')[0]; // up, down, left, right
+
                 switch (btn.id) {
                     case 'up-btn':
-                        if (direction !== 'down') nextDirection = 'up';
+                        if (direction !== 'down') nextDirection = requestedDirection;
                         break;
                     case 'down-btn':
-                        if (direction !== 'up') nextDirection = 'down';
+                        if (direction !== 'up') nextDirection = requestedDirection;
                         break;
                     case 'left-btn':
-                        if (direction !== 'right') nextDirection = 'left';
+                        if (direction !== 'right') nextDirection = requestedDirection;
                         break;
                     case 'right-btn':
-                        if (direction !== 'left') nextDirection = 'right';
+                        if (direction !== 'left') nextDirection = requestedDirection;
                         break;
                 }
             });
