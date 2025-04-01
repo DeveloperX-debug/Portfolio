@@ -5,28 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            margin: 0;
             background-color: #1a1a1a;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             color: white;
         }
 
         #game-container {
             position: relative;
             width: 100%;
-            max-width: 600px;
-            padding: 20px;
+            max-width: 400px;
+            margin: 20px;
         }
 
         #game-board {
@@ -34,36 +29,28 @@
             aspect-ratio: 1;
             background-color: #2a2a2a;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
         #score {
             position: absolute;
-            top: 30px;
-            right: 30px;
+            top: 20px;
+            right: 20px;
             font-size: 24px;
             font-weight: bold;
-            color: #fff;
-        }
-
-        #controls {
-            margin-top: 20px;
-            text-align: center;
         }
 
         #start-btn {
+            margin-top: 20px;
             padding: 10px 30px;
             font-size: 18px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
         }
 
         #start-btn:hover {
-            transform: scale(1.05);
             background-color: #45a049;
         }
 
@@ -72,22 +59,8 @@
             padding: 20px;
             background-color: #2a2a2a;
             border-radius: 10px;
-            max-width: 600px;
+            max-width: 400px;
             text-align: center;
-        }
-
-        #instructions h2 {
-            margin-bottom: 15px;
-            color: #4CAF50;
-        }
-
-        .control-group {
-            margin: 10px 0;
-        }
-
-        .control-group h3 {
-            color: #4CAF50;
-            margin-bottom: 5px;
         }
 
         .control-buttons {
@@ -103,33 +76,13 @@
             background-color: #333;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .control-btn:active {
-            background-color: #4CAF50;
         }
 
         @media (max-width: 768px) {
             .control-buttons {
                 display: grid;
-            }
-
-            #game-container {
-                padding: 10px;
-            }
-
-            #score {
-                top: 20px;
-                right: 20px;
-                font-size: 20px;
-            }
-
-            #instructions {
-                margin: 20px 10px;
-                padding: 15px;
             }
         }
     </style>
@@ -139,20 +92,10 @@
         <canvas id="game-board"></canvas>
         <div id="score">Score: 0</div>
     </div>
-    <div id="controls">
-        <button id="start-btn">Start Game</button>
-    </div>
+    <button id="start-btn">Start Game</button>
     <div id="instructions">
         <h2>How to Play</h2>
-        <div class="control-group">
-            <h3>Desktop Controls</h3>
-            <p>Use arrow keys to control the snake</p>
-        </div>
-        <div class="control-group">
-            <h3>Mobile Controls</h3>
-            <p>Swipe in any direction to control the snake</p>
-            <p>Or use the control buttons below</p>
-        </div>
+        <p>Use arrow keys or swipe to control the snake</p>
         <div class="control-buttons">
             <button class="control-btn" id="left-btn">←</button>
             <button class="control-btn" id="up-btn">↑</button>
@@ -215,7 +158,6 @@
                     x: Math.floor(Math.random() * GRID_SIZE),
                     y: Math.floor(Math.random() * GRID_SIZE)
                 };
-                // Make sure food doesn't spawn on snake
                 if (!snake.some(segment => segment.x === food.x && segment.y === food.y)) {
                     break;
                 }
@@ -234,7 +176,6 @@
                     const eyeSize = CELL_SIZE / 6;
                     const eyeOffset = CELL_SIZE / 4;
                     
-                    // Position eyes based on direction
                     let leftEyeX, leftEyeY, rightEyeX, rightEyeY;
                     switch(direction) {
                         case 'right':
