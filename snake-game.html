@@ -135,17 +135,21 @@
         const controlButtons = document.querySelectorAll('.control-btn');
 
         // Set canvas size
+        let CELL_SIZE;
+
         function resizeCanvas() {
             const container = canvas.parentElement;
-            canvas.width = container.clientWidth;
-            canvas.height = container.clientWidth;
+            const size = container.clientWidth;
+            canvas.width = size;
+            canvas.height = size;
+            CELL_SIZE = size / GRID_SIZE; // Recalculate CELL_SIZE on resize
+            if (!isGameRunning) { // Redraw initial state if game not running
+                drawInitialState();
+            }
         }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
 
         // Game constants
         const GRID_SIZE = 20;
-        const CELL_SIZE = canvas.width / GRID_SIZE;
         const INITIAL_SPEED = 150;
         const MIN_SPEED = 50;
 
@@ -155,7 +159,7 @@
         let direction = 'right';
         let nextDirection = 'right';
         let score = 0;
-        let gameLoop = null;
+        let gameLoopInterval = null; // Renamed variable for interval ID
         let gameSpeed = INITIAL_SPEED;
         let isGameRunning = false;
 
@@ -172,6 +176,13 @@
             gameSpeed = INITIAL_SPEED;
             scoreElement.textContent = `Score: ${score}`;
             generateFood();
+        }
+
+        // Draw initial state (before game starts)
+        function drawInitialState() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawFood();
+            drawSnake();
         }
 
         // Generate food
@@ -267,6 +278,7 @@
         }
 
         function drawFood() {
+            if (!food.x) return; // Don't draw if food not generated yet
             // Draw cute apple
             const x = food.x * CELL_SIZE + CELL_SIZE/2;
             const y = food.y * CELL_SIZE + CELL_SIZE/2;
@@ -305,9 +317,10 @@
             }
 
             // Check for collisions
-            if (head.x < 0 || head.x >= GRID_SIZE || 
+            if (head.x < 0 || head.x >= GRID_SIZE ||
                 head.y < 0 || head.y >= GRID_SIZE ||
-                snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                // Check collision with snake body (excluding the new head)
+                snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
                 gameOver();
                 return;
             }
@@ -331,7 +344,7 @@
         }
 
         function gameOver() {
-            clearInterval(gameLoop);
+            clearInterval(gameLoopInterval);
             isGameRunning = false;
             startBtn.textContent = 'Play Again';
             ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
@@ -344,24 +357,34 @@
             ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 40);
         }
 
-        function gameLoop() {
+        function runGameLoop() { // Renamed game loop function
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             moveSnake();
             drawFood();
             drawSnake();
+
+            // Reschedule the next frame, adjusting for speed changes
+            clearInterval(gameLoopInterval);
+            if (isGameRunning) {
+                gameLoopInterval = setInterval(runGameLoop, gameSpeed);
+            }
         }
 
         // Event listeners
         startBtn.addEventListener('click', () => {
             if (isGameRunning) {
-                clearInterval(gameLoop);
+                clearInterval(gameLoopInterval);
                 isGameRunning = false;
-                startBtn.textContent = 'Start Game';
+                startBtn.textContent = 'Resume Game';
             } else {
-                initGame();
+                if (startBtn.textContent === 'Play Again') {
+                    initGame(); // Re-initialize if starting after game over
+                }
                 isGameRunning = true;
                 startBtn.textContent = 'Pause Game';
-                gameLoop = setInterval(gameLoop, gameSpeed);
+                // Clear any previous interval before starting a new one
+                clearInterval(gameLoopInterval);
+                gameLoopInterval = setInterval(runGameLoop, gameSpeed);
             }
         });
 
@@ -433,6 +456,12 @@
                 }
             });
         });
+
+        // Initial setup
+        resizeCanvas(); // Call resize first to set initial canvas size and CELL_SIZE
+        window.addEventListener('resize', resizeCanvas); // Add resize listener
+        initGame(); // Initialize game state
+        drawInitialState(); // Draw the initial board
     </script>
 </body>
 </html> 
