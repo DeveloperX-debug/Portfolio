@@ -94,12 +94,16 @@
 
         .control-buttons {
             display: none;
+            /* Updated grid layout for better D-pad feel */
             grid-template-areas:
                 ". up ."
-                "left down right";
+                "left . right" /* Middle row for left/right */
+                ". down ."; /* Bottom row for down */
+            grid-template-rows: auto auto auto; /* Define 3 rows */
             grid-template-columns: repeat(3, 1fr);
             justify-items: center;
-            gap: 10px;
+            row-gap: 5px; /* Adjust vertical gap */
+            column-gap: 10px; /* Keep horizontal gap */
             margin-top: 20px;
             max-width: 240px;
             margin-left: auto;
@@ -404,10 +408,6 @@
                 scoreElement.textContent = `Score: ${score}`;
                 food.isEaten = true;
                 generateFood();
-                // Increase speed
-                if (gameSpeed > MIN_SPEED) {
-                    gameSpeed -= 5;
-                }
             } else {
                 snake.pop();
             }
