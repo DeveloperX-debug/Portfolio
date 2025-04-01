@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prem Saraf - Portfolio</title>
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -15,77 +16,148 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f4f4f4;
         }
 
-        .container {
+        header {
+            background-color: #1a1a1a;
+            padding: 1rem;
+            position: fixed;
             width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: clamp(15px, 3vw, 30px);
+            top: 0;
+            z-index: 1000;
         }
 
-        /* Hero Section */
-        .hero {
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        main {
+            margin-top: 60px;
+        }
+
+        #hero {
             background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
             color: white;
-            padding: clamp(40px, 10vw, 100px) 0;
+            padding: 6rem 2rem;
             text-align: center;
         }
 
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
             margin-bottom: 1rem;
         }
 
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
             opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        section {
+            padding: 4rem 2rem;
+        }
+
+        #about {
+            background-color: white;
+        }
+
+        .about-content {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        /* About Section */
-        .about {
-            padding: clamp(30px, 8vw, 80px) 0;
-            background-color: white;
-        }
-
-        .about h2 {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .about p {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            max-width: 800px;
-            margin: 0 auto 1.5rem;
-            padding: 0 clamp(15px, 3vw, 30px);
-        }
-
-        /* Projects Section */
-        .projects {
-            padding: clamp(30px, 8vw, 80px) 0;
-            background-color: #f8f9fa;
-        }
-
-        .projects h2 {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
+        .about-content h2 {
+            font-size: 2.5rem;
             margin-bottom: 2rem;
             text-align: center;
         }
 
-        .project-grid {
+        .skills {
+            margin-top: 2rem;
+        }
+
+        .skills h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .skills ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .skills li {
+            background-color: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+
+        #projects {
+            background-color: #f8f9fa;
+        }
+
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: clamp(20px, 4vw, 40px);
-            padding: 0 clamp(15px, 3vw, 30px);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .project-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
@@ -99,179 +171,268 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
-            border-bottom: 1px solid #eee;
         }
 
-        .project-info {
-            padding: clamp(15px, 3vw, 25px);
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin: 1rem;
         }
 
-        .project-info h3 {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            margin-bottom: 0.8rem;
-            color: #2c3e50;
-        }
-
-        .project-info p {
-            font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+        .project-card p {
+            margin: 0 1rem 1rem;
             color: #666;
-            margin-bottom: 1rem;
         }
 
-        .project-link {
-            display: inline-block;
-            padding: 8px 20px;
-            background-color: #007bff;
-            color: white;
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem;
+        }
+
+        .project-links a {
+            color: #007bff;
             text-decoration: none;
-            border-radius: 25px;
-            font-size: clamp(0.9rem, 1.8vw, 1rem);
-            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .project-link:hover {
-            background-color: #0056b3;
+        .project-links a:hover {
+            text-decoration: underline;
         }
 
-        /* Contact Section */
-        .contact {
-            padding: clamp(30px, 8vw, 80px) 0;
+        #contact {
             background-color: white;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
             text-align: center;
         }
 
-        .contact h2 {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
+        .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .contact p {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            margin-bottom: 2rem;
-            padding: 0 clamp(15px, 3vw, 30px);
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: clamp(15px, 3vw, 30px);
-            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-size: clamp(0.9rem, 1.8vw, 1rem);
-            transition: transform 0.3s ease, background-color 0.3s ease;
+        .social-links a {
+            color: #333;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
         }
 
-        .social-link:hover {
-            transform: translateY(-2px);
-            background-color: #555;
+        .social-links a:hover {
+            color: #007bff;
         }
 
-        /* Footer */
         footer {
             background-color: #1a1a1a;
             color: white;
             text-align: center;
-            padding: clamp(20px, 5vw, 40px) 0;
-            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            padding: 2rem;
         }
 
-        /* Media Queries */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
+            nav ul {
+                gap: 1rem;
             }
 
-            .project-grid {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .about-content h2,
+            .contact-content h2 {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
                 grid-template-columns: 1fr;
             }
 
             .social-links {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .social-link {
-                width: 80%;
-                justify-content: center;
+                gap: 1.5rem;
             }
         }
 
         @media (max-width: 480px) {
-            .hero {
-                padding: 40px 0;
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .skills ul {
+                justify-content: center;
             }
 
             .project-card img {
                 height: 180px;
             }
+
+            .project-links {
+                flex-direction: column;
+            }
+
+            .social-links {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
-    <section class="hero">
-        <div class="container">
-            <h1>Prem Saraf</h1>
-            <p>Web Developer & Software Engineer</p>
-        </div>
-    </section>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <section class="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>I am a passionate software developer with expertise in web development and problem-solving. I love creating efficient, user-friendly applications that make a difference.</p>
-            <p>My skills include HTML, CSS, JavaScript, and various modern web technologies. I'm always eager to learn new technologies and take on challenging projects.</p>
-        </div>
-    </section>
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Prem Saraf</h1>
+                <p class="tagline">Full Stack Developer | Problem Solver | Tech Enthusiast</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn primary">View Projects</a>
+                    <a href="#contact" class="btn secondary">Contact Me</a>
+                </div>
+            </div>
+        </section>
 
-    <section class="projects">
-        <div class="container">
+        <section id="about">
+            <div class="about-content">
+                <h2>About Me</h2>
+                <p>I'm a passionate developer with expertise in creating innovative solutions. With a strong foundation in both front-end and back-end development, I strive to build applications that make a difference.</p>
+                <div class="skills">
+                    <h3>Skills</h3>
+                    <ul>
+                        <li>HTML/CSS</li>
+                        <li>JavaScript</li>
+                        <li>Python</li>
+                        <li>React</li>
+                        <li>Node.js</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
             <h2>My Projects</h2>
-            <div class="project-grid">
+            <div class="projects-grid">
                 <div class="project-card">
-                    <img src="snake-cover.png" alt="Snake Game">
-                    <div class="project-info">
-                        <h3>Snake Game</h3>
-                        <p>A classic Snake game built with HTML5 Canvas and JavaScript. Features responsive design and touch controls.</p>
-                        <a href="snake-game.html" class="project-link">Play Game</a>
+                    <div style="background-color: #1a1a1a; padding: 20px; height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <svg width="200" height="160" viewBox="0 0 100 80">
+                            <!-- Pixel art snake recreation -->
+                            <rect width="100%" height="100%" fill="#1a1a1a"/>
+                            <g transform="translate(20,20) scale(2)">
+                                <!-- Snake body pixels -->
+                                <rect x="0" y="0" width="4" height="4" fill="#ff0000"/>
+                                <rect x="4" y="0" width="4" height="4" fill="#ff0000"/>
+                                <rect x="8" y="0" width="4" height="4" fill="#ff0000"/>
+                                <rect x="12" y="0" width="4" height="4" fill="#ff0000"/>
+                                <rect x="16" y="0" width="4" height="4" fill="#ff0000"/>
+                                <rect x="20" y="0" width="4" height="4" fill="#ff0000"/>
+                                <!-- Snake highlights -->
+                                <rect x="2" y="1" width="2" height="2" fill="#ffffff"/>
+                                <rect x="10" y="1" width="2" height="2" fill="#ffffff"/>
+                                <rect x="18" y="1" width="2" height="2" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Classic Snake Game</h3>
+                    <p>A minimalist implementation of the classic snake game using JavaScript. Features smooth controls, increasing difficulty, and works on all devices.</p>
+                    <div class="project-links">
+                        <a href="snake-game.html" target="_blank"><i class="fas fa-gamepad"></i> Play Game</a>
                     </div>
                 </div>
                 <div class="project-card">
                     <img src="https://via.placeholder.com/300x200" alt="Project 2">
-                    <div class="project-info">
-                        <h3>Coming Soon</h3>
-                        <p>More exciting projects are in development. Stay tuned!</p>
-                        <a href="#" class="project-link">Learn More</a>
+                    <h3>Project 2</h3>
+                    <p>Description of your second project. Explain what it does and what technologies you used.</p>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
+                        <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="contact">
-        <div class="container">
-            <h2>Get in Touch</h2>
-            <p>I'm always interested in hearing about new projects and opportunities.</p>
-            <div class="social-links">
-                <a href="https://github.com/yourusername" class="social-link">GitHub</a>
-                <a href="https://linkedin.com/in/yourusername" class="social-link">LinkedIn</a>
-                <a href="mailto:your.email@example.com" class="social-link">Email</a>
+        <section id="contact">
+            <div class="contact-content">
+                <h2>Get in Touch</h2>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Prem Saraf. All rights reserved.</p>
-        </div>
+        <p>&copy; 2024 Prem Saraf. All rights reserved.</p>
     </footer>
 </body>
 </html> 
