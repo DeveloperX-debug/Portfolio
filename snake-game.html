@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Snake Game</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff6b6b">
     <style>
         body {
             display: flex;
@@ -539,6 +541,15 @@
         window.addEventListener('resize', resizeCanvas); // Add resize listener
         initGame(); // Initialize game state
         drawInitialState(); // Draw the initial board
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js') // Use absolute path from root
+              .then((reg) => console.log('Service Worker: Registered', reg))
+              .catch((err) => console.log('Service Worker: Registration Error: ', err));
+          });
+        }
     </script>
 </body>
 </html> 
