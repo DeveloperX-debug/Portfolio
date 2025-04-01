@@ -10,27 +10,36 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 15px;
             background-color: #f0f0f0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
         }
 
         #game-container {
             position: relative;
+            width: 100%;
+            max-width: 600px;
             touch-action: none;
         }
 
         #game-board {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
             border: 2px solid #333;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
 
         #score {
-            font-size: 24px;
+            font-size: clamp(18px, 4vw, 24px);
             margin-bottom: 20px;
             color: #333;
+            text-align: center;
         }
 
         #game-over {
@@ -44,26 +53,37 @@
             padding: 20px;
             border-radius: 10px;
             text-align: center;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        #game-over h2 {
+            font-size: clamp(20px, 4vw, 24px);
+            margin-bottom: 10px;
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 12px 24px;
+            font-size: clamp(14px, 3vw, 16px);
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
+            transition: transform 0.2s, background-color 0.2s;
+            touch-action: manipulation;
         }
 
         button:hover {
             background-color: #45a049;
+            transform: translateY(-2px);
         }
 
         .instructions {
+            width: 100%;
             max-width: 600px;
-            margin: 20px auto;
+            margin: 20px auto 0;
             padding: 15px;
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
@@ -74,23 +94,57 @@
         .instructions h3 {
             margin-top: 0;
             color: #333;
+            font-size: clamp(16px, 3.5vw, 20px);
         }
 
         .controls {
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
+            gap: 15px;
             margin-top: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .controls {
+                flex-direction: row;
+                justify-content: space-around;
+            }
         }
 
         .control-group {
             text-align: center;
+            flex: 1;
+        }
+
+        .control-group h4 {
+            font-size: clamp(14px, 3vw, 16px);
+            margin: 0 0 8px 0;
+        }
+
+        .control-group p {
+            font-size: clamp(12px, 2.5vw, 14px);
+            margin: 0;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .instructions {
+                padding: 10px;
+            }
+
+            button {
+                padding: 10px 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div id="score">Score: 0</div>
     <div id="game-container">
-        <canvas id="game-board" width="600" height="600"></canvas>
+        <canvas id="game-board"></canvas>
         <div id="game-over">
             <h2>Game Over!</h2>
             <p>Final Score: <span id="final-score">0</span></p>
@@ -114,8 +168,25 @@
     <script>
         const canvas = document.getElementById('game-board');
         const ctx = canvas.getContext('2d');
-        const gridSize = 20;
-        const tileCount = canvas.width / gridSize;
+        
+        // Make canvas responsive
+        function resizeCanvas() {
+            const container = document.getElementById('game-container');
+            const containerWidth = container.clientWidth;
+            canvas.width = containerWidth;
+            canvas.height = containerWidth;
+            gridSize = Math.floor(containerWidth / 30); // Adjust grid size based on canvas size
+            tileCount = Math.floor(canvas.width / gridSize);
+        }
+
+        // Initial setup
+        resizeCanvas();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            if (!isGameOver) {
+                drawGame();
+            }
+        });
 
         let snake = [
             { x: 10, y: 10 }
@@ -128,9 +199,9 @@
         let gameLoop;
         let touchStartX = 0;
         let touchStartY = 0;
-
-        // Keyboard controls
-        document.addEventListener('keydown', changeDirection);
+        let isGameOver = false;
+        let gridSize;
+        let tileCount;
 
         // Touch controls
         canvas.addEventListener('touchstart', handleTouchStart, false);
@@ -155,8 +226,10 @@
             const deltaX = touchEndX - touchStartX;
             const deltaY = touchEndY - touchStartY;
 
-            // Determine swipe direction based on which delta is larger
-            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // Increase minimum swipe distance for better control
+            const minSwipeDistance = 30;
+
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
                 // Horizontal swipe
                 if (deltaX > 0 && dx !== -1) {
                     dx = 1;
@@ -165,7 +238,7 @@
                     dx = -1;
                     dy = 0;
                 }
-            } else {
+            } else if (Math.abs(deltaY) > minSwipeDistance) {
                 // Vertical swipe
                 if (deltaY > 0 && dy !== -1) {
                     dx = 0;
@@ -181,7 +254,8 @@
             event.preventDefault();
         }
 
-        function changeDirection(event) {
+        // Keyboard controls
+        document.addEventListener('keydown', function(event) {
             const LEFT_KEY = 37;
             const RIGHT_KEY = 39;
             const UP_KEY = 38;
@@ -209,7 +283,7 @@
                 dx = 0;
                 dy = 1;
             }
-        }
+        });
 
         function drawGame() {
             // Clear canvas
@@ -277,12 +351,14 @@
         }
 
         function gameOver() {
+            isGameOver = true;
             clearInterval(gameLoop);
             document.getElementById('game-over').style.display = 'block';
             document.getElementById('final-score').textContent = score;
         }
 
         function restartGame() {
+            isGameOver = false;
             snake = [{ x: 10, y: 10 }];
             food = { x: 15, y: 15 };
             dx = 0;
