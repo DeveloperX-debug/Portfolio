@@ -339,6 +339,11 @@
             isPlaying = true;
             startBtn.classList.add('playing');
             startBtn.textContent = 'Pause';
+            // Set initial direction to right when game starts
+            if (dx === 0 && dy === 0) {
+                dx = 1;
+                dy = 0;
+            }
             gameLoop = setInterval(drawGame, gameSpeed);
         }
 
@@ -562,6 +567,20 @@
             clearInterval(gameLoop);
             initBoard();
         }
+
+        // Add space bar control to start/pause game
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                event.preventDefault(); // Prevent page scrolling
+                if (!isGameOver) {
+                    if (!isPlaying) {
+                        startGame();
+                    } else {
+                        pauseGame();
+                    }
+                }
+            }
+        });
 
         // Initialize the game board
         initBoard();
