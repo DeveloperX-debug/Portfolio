@@ -32,6 +32,8 @@
             width: 100%;
             aspect-ratio: 1;
             background-color: #fff;
+            background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
             border-radius: 15px;
             box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
         }
@@ -44,6 +46,16 @@
             font-weight: bold;
             color: #ff6b6b;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #high-score {
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            font-size: 16px;
+            font-weight: normal;
+            color: #ff8e8e;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         #start-btn {
@@ -82,13 +94,25 @@
 
         .control-buttons {
             display: none;
+            grid-template-areas:
+                ". up ."
+                "left down right";
             grid-template-columns: repeat(3, 1fr);
+            justify-items: center;
             gap: 10px;
             margin-top: 20px;
+            max-width: 240px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .control-btn {
-            padding: 15px;
+            padding: 18px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 24px;
             background: linear-gradient(45deg, #ffd6e7, #ffb6c1);
             color: #4a4a4a;
@@ -103,6 +127,16 @@
             transform: scale(1.1);
         }
 
+        .control-btn:active {
+            transform: scale(0.95);
+            background: linear-gradient(45deg, #ffb6c1, #ffd6e7);
+        }
+
+        #up-btn { grid-area: up; }
+        #left-btn { grid-area: left; }
+        #down-btn { grid-area: down; }
+        #right-btn { grid-area: right; }
+
         @media (max-width: 768px) {
             .control-buttons {
                 display: grid;
@@ -114,6 +148,7 @@
     <div id="game-container">
         <canvas id="game-board"></canvas>
         <div id="score">Score: 0</div>
+        <div id="high-score">High Score: 0</div>
     </div>
     <button id="start-btn">Start Game</button>
     <div id="instructions">
@@ -132,6 +167,7 @@
         const ctx = canvas.getContext('2d');
         const startBtn = document.getElementById('start-btn');
         const scoreElement = document.getElementById('score');
+        const highScoreElement = document.getElementById('high-score');
         const controlButtons = document.querySelectorAll('.control-btn');
 
         // Set canvas size
@@ -159,9 +195,21 @@
         let direction = 'right';
         let nextDirection = 'right';
         let score = 0;
+        let highScore = 0;
         let gameLoopInterval = null; // Renamed variable for interval ID
         let gameSpeed = INITIAL_SPEED;
         let isGameRunning = false;
+
+        // Local storage functions
+        function getHighScore() {
+            return parseInt(localStorage.getItem('cuteSnakeHighScore') || '0');
+        }
+
+        function setHighScore(newScore) {
+            highScore = Math.max(newScore, highScore);
+            localStorage.setItem('cuteSnakeHighScore', highScore.toString());
+            highScoreElement.textContent = `High Score: ${highScore}`;
+        }
 
         // Initialize game
         function initGame() {
@@ -175,6 +223,8 @@
             score = 0;
             gameSpeed = INITIAL_SPEED;
             scoreElement.textContent = `Score: ${score}`;
+            highScore = getHighScore();
+            highScoreElement.textContent = `High Score: ${highScore}`;
             generateFood();
         }
 
@@ -215,6 +265,9 @@
 
                 // Draw snake head with cute face
                 if (index === 0) {
+                    const headX = segment.x * CELL_SIZE;
+                    const headY = segment.y * CELL_SIZE;
+                    
                     // Eyes
                     ctx.fillStyle = 'white';
                     const eyeSize = CELL_SIZE / 6;
@@ -250,15 +303,15 @@
                     
                     // Draw eyes
                     ctx.beginPath();
-                    ctx.arc(leftEyeX, leftEyeY, eyeSize, 0, Math.PI * 2);
-                    ctx.arc(rightEyeX, rightEyeY, eyeSize, 0, Math.PI * 2);
+                    ctx.arc(headX + eyeOffset, headY + eyeOffset, eyeSize, 0, Math.PI * 2);
+                    ctx.arc(headX + CELL_SIZE - eyeOffset, headY + eyeOffset, eyeSize, 0, Math.PI * 2);
                     ctx.fill();
 
                     // Draw pupils
                     ctx.fillStyle = '#4a4a4a';
                     ctx.beginPath();
-                    ctx.arc(leftEyeX, leftEyeY, eyeSize/2, 0, Math.PI * 2);
-                    ctx.arc(rightEyeX, rightEyeY, eyeSize/2, 0, Math.PI * 2);
+                    ctx.arc(headX + eyeOffset, headY + eyeOffset, eyeSize/2, 0, Math.PI * 2);
+                    ctx.arc(headX + CELL_SIZE - eyeOffset, headY + eyeOffset, eyeSize/2, 0, Math.PI * 2);
                     ctx.fill();
 
                     // Draw cute smile
@@ -266,8 +319,8 @@
                     ctx.lineWidth = 2;
                     ctx.beginPath();
                     ctx.arc(
-                        segment.x * CELL_SIZE + CELL_SIZE/2,
-                        segment.y * CELL_SIZE + CELL_SIZE/2,
+                        headX + CELL_SIZE/2,
+                        headY + CELL_SIZE/2,
                         CELL_SIZE/4,
                         0,
                         Math.PI
@@ -278,31 +331,38 @@
         }
 
         function drawFood() {
-            if (!food.x) return; // Don't draw if food not generated yet
+            if (food.x === undefined || food.y === undefined) return;
+
             // Draw cute apple
             const x = food.x * CELL_SIZE + CELL_SIZE/2;
             const y = food.y * CELL_SIZE + CELL_SIZE/2;
             const size = CELL_SIZE/2 - 2;
 
+            const popSize = food.isEaten ? size * 1.2 : size;
+
             // Apple body
             ctx.fillStyle = '#ff6b6b';
             ctx.beginPath();
-            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.arc(x, y, popSize, 0, Math.PI * 2);
             ctx.fill();
 
             // Apple leaf
             ctx.fillStyle = '#4CAF50';
             ctx.beginPath();
-            ctx.moveTo(x, y - size);
-            ctx.quadraticCurveTo(x + size/2, y - size - size/2, x, y - size - size/2);
-            ctx.quadraticCurveTo(x - size/2, y - size - size/2, x, y - size);
+            ctx.moveTo(x, y - popSize);
+            ctx.quadraticCurveTo(x + popSize/2, y - popSize - popSize/2, x, y - popSize - popSize/2);
+            ctx.quadraticCurveTo(x - popSize/2, y - popSize - popSize/2, x, y - popSize);
             ctx.fill();
 
             // Apple shine
             ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
             ctx.beginPath();
-            ctx.arc(x - size/3, y - size/3, size/4, 0, Math.PI * 2);
+            ctx.arc(x - popSize/3, y - popSize/3, popSize/4, 0, Math.PI * 2);
             ctx.fill();
+
+            if (food.isEaten) {
+                food.isEaten = false;
+            }
         }
 
         // Game logic
@@ -331,6 +391,7 @@
             if (head.x === food.x && head.y === food.y) {
                 score += 10;
                 scoreElement.textContent = `Score: ${score}`;
+                food.isEaten = true;
                 generateFood();
                 // Increase speed
                 if (gameSpeed > MIN_SPEED) {
@@ -346,6 +407,7 @@
         function gameOver() {
             clearInterval(gameLoopInterval);
             isGameRunning = false;
+            setHighScore(score);
             startBtn.textContent = 'Play Again';
             ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
