@@ -176,11 +176,13 @@
 
         .project-card img {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 220px;
+            object-fit: contain;
             border-radius: 15px;
             margin-bottom: 1.5rem;
             transition: transform 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.03);
+            padding: 10px;
         }
 
         .project-card:hover img {
@@ -259,8 +261,9 @@
             }
 
             .project-card img {
-                height: 180px;
+                height: 200px;
                 margin-bottom: 1.2rem;
+                padding: 8px;
             }
 
             .project-links .btn {
