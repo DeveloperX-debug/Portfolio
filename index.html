@@ -278,6 +278,44 @@
              }
         }
 
+        /* Project card styles */
+        .project-links {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .project-links .btn {
+            flex: 1;
+            text-align: center;
+        }
+
+        .project-links .btn:last-child {
+            background-color: #333;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-stack span {
+            background: rgba(0,0,0,0.1);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #333;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
     </style>
 </head>
 <body>
@@ -312,17 +350,18 @@
             <h2>My Projects</h2>
             <div class="project-grid">
                 <div class="project-card">
+                    <img src="snake-pixel-art.png" alt="Modern Snake Game">
                     <h3>Modern Snake Game</h3>
                     <p>A minimalist, modern take on the classic Snake game with beautiful dot-styled design. Features touch controls, responsive design, and PWA support.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/DeveloperX-debug/snake-game" target="_blank" class="btn">View Code</a>
-                        <a href="https://developerx-debug.github.io/snake-game" target="_blank" class="btn">Live Demo</a>
+                    <div class="project-links" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <a href="https://developerx-debug.github.io/snake-game" target="_blank" class="btn">Play Game</a>
+                        <a href="https://github.com/DeveloperX-debug/snake-game" target="_blank" class="btn" style="background-color: #333;">View Code</a>
                     </div>
-                    <div class="tech-stack">
-                        <span>HTML5 Canvas</span>
-                        <span>CSS3</span>
-                        <span>JavaScript</span>
-                        <span>PWA</span>
+                    <div class="tech-stack" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <span style="background: rgba(0,0,0,0.1); padding: 4px 10px; border-radius: 15px; font-size: 0.85rem;">HTML5 Canvas</span>
+                        <span style="background: rgba(0,0,0,0.1); padding: 4px 10px; border-radius: 15px; font-size: 0.85rem;">CSS3</span>
+                        <span style="background: rgba(0,0,0,0.1); padding: 4px 10px; border-radius: 15px; font-size: 0.85rem;">JavaScript</span>
+                        <span style="background: rgba(0,0,0,0.1); padding: 4px 10px; border-radius: 15px; font-size: 0.85rem;">PWA</span>
                     </div>
                 </div>
                 <div class="project-card">
