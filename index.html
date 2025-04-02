@@ -152,21 +152,22 @@
 
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); /* Increased from 300px to accommodate buttons */
             gap: 30px;
         }
 
         .project-card {
-            /* Inherit glass style, but maybe slightly less blur or different background */
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px) saturate(150%);
-             -webkit-backdrop-filter: blur(10px) saturate(150%);
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
             border-radius: 20px;
             border: 1px solid rgba(209, 213, 219, 0.5);
             padding: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden; /* Ensure image corners are rounded */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
@@ -193,92 +194,6 @@
              color: #4a4a4a;
          }
 
-        .project-card a.btn {
-             display: inline-block;
-             background-color: #007aff;
-             color: white;
-             padding: 10px 20px;
-             border-radius: 25px; /* Pill shape */
-             font-weight: 500;
-             transition: background-color 0.3s ease, transform 0.2s ease;
-             margin-top: auto; /* Push button to bottom if in flex container */
-        }
-
-         .project-card a.btn:hover {
-             background-color: #0056b3;
-             transform: scale(1.05);
-         }
-
-        /* Contact Section */
-        .contact {
-            text-align: center;
-        }
-
-        .contact h2 {
-            margin-bottom: 1rem;
-        }
-        .contact p{
-             margin-bottom: 2rem;
-             font-size: 1.1rem;
-        }
-
-        .social-links a {
-            margin: 0 15px;
-            display: inline-block;
-             transition: transform 0.3s ease;
-        }
-         .social-links a:hover {
-             transform: scale(1.15);
-         }
-
-        .social-links img {
-            width: 32px; /* Adjust icon size */
-            height: 32px;
-            vertical-align: middle;
-             border-radius: 8px; /* Slightly rounded icons */
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px 0;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-             nav {
-                flex-direction: column;
-                 align-items: flex-start;
-             }
-             nav ul {
-                 margin-top: 15px;
-                 padding-left: 0; /* Remove padding */
-             }
-              nav ul li {
-                  margin-left: 0;
-                  margin-right: 15px; /* Add right margin */
-             }
-            .hero {
-                padding: 40px 15px;
-            }
-             .project-grid {
-                grid-template-columns: 1fr; /* Stack cards on smaller screens */
-            }
-             .glass-section {
-                 padding: 25px;
-                 border-radius: 20px;
-             }
-             .project-card {
-                 padding: 20px;
-                 border-radius: 15px;
-             }
-        }
-
-        /* Project card styles */
         .project-links {
             display: flex;
             gap: 15px;
@@ -291,12 +206,13 @@
             text-align: center;
             white-space: nowrap;
             min-width: 140px;
-            padding: 12px 30px;
+            padding: 12px 25px;
             font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 30px;
+            margin: 0;
         }
 
         .project-links .btn:hover {
@@ -309,6 +225,10 @@
         }
 
         @media (max-width: 768px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
             .project-links .btn {
                 min-width: 120px;
                 padding: 10px 20px;
@@ -319,6 +239,12 @@
             .project-links {
                 gap: 10px;
                 margin-bottom: 15px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1100px) {
+            .project-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
         }
 
@@ -342,6 +268,79 @@
             object-fit: cover;
             border-radius: 15px;
             margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .contact p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .social-links a {
+            margin: 0 15px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.15);
+        }
+
+        .social-links img {
+            width: 32px;
+            height: 32px;
+            vertical-align: middle;
+            border-radius: 8px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                padding-left: 0;
+            }
+            
+            nav ul li {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+            
+            .hero {
+                padding: 40px 15px;
+            }
+            
+            .glass-section {
+                padding: 25px;
+                border-radius: 20px;
+            }
+            
+            .project-card {
+                padding: 20px;
+                border-radius: 15px;
+            }
         }
 
     </style>
