@@ -281,8 +281,8 @@
         /* Project card styles */
         .project-links {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 15px;
+            margin-bottom: 20px;
             width: 100%;
         }
 
@@ -290,15 +290,36 @@
             flex: 1;
             text-align: center;
             white-space: nowrap;
-            min-width: 120px;
-            padding: 10px 20px;
+            min-width: 140px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 30px;
+        }
+
+        .project-links .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .project-links .btn:last-child {
             background-color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .project-links .btn {
+                min-width: 120px;
+                padding: 10px 20px;
+                font-size: 1rem;
+                border-radius: 25px;
+            }
+            
+            .project-links {
+                gap: 10px;
+                margin-bottom: 15px;
+            }
         }
 
         .tech-stack {
