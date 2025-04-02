@@ -8,140 +8,103 @@
     <meta name="theme-color" content="#ff6b6b">
     <style>
         body {
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #ffd6e7 0%, #c1fba4 100%);
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            color: #4a4a4a;
+            background-color: #1a1a1a;
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
         }
 
-        #game-container {
+        .game-container {
             position: relative;
-            width: 100%;
-            max-width: 400px;
             margin: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
+        }
+
+        canvas {
+            border: 2px solid #333;
+            border-radius: 8px;
+            background-color: #000;
+        }
+
+        .score {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin: 10px 0;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .game-over {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.9);
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            z-index: 100;
         }
 
-        #game-board {
-            width: 100%;
-            aspect-ratio: 1;
-            background-color: #fff;
-            background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
-            border-radius: 15px;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+        .game-over h2 {
+            margin: 0 0 15px 0;
+            color: #ff4444;
+            font-size: clamp(1.5rem, 4vw, 2rem);
         }
 
-        #score {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff6b6b;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        .game-over p {
+            margin: 0 0 20px 0;
+            color: #fff;
+            font-size: clamp(1rem, 3vw, 1.2rem);
         }
 
-        #high-score {
-            position: absolute;
-            top: 50px;
-            right: 20px;
-            font-size: 16px;
-            font-weight: normal;
-            color: #ff8e8e;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        #start-btn {
-            margin-top: 20px;
-            padding: 12px 30px;
-            font-size: 18px;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+        button {
+            background-color: #ff4444;
             color: white;
             border: none;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            transition: background-color 0.3s;
         }
 
-        #start-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-        }
-
-        #instructions {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        #instructions h2 {
-            color: #ff6b6b;
-            margin-bottom: 15px;
+        button:hover {
+            background-color: #ff6666;
         }
 
         .control-buttons {
             display: none;
-            /* Updated grid layout for better D-pad feel */
-            grid-template-areas:
-                ". up ."
-                "left . right" /* Middle row for left/right */
-                ". down ."; /* Bottom row for down */
-            grid-template-rows: auto auto auto; /* Define 3 rows */
             grid-template-columns: repeat(3, 1fr);
-            justify-items: center;
-            row-gap: 5px; /* Adjust vertical gap */
-            column-gap: 10px; /* Keep horizontal gap */
+            gap: 10px;
             margin-top: 20px;
-            max-width: 240px;
-            margin-left: auto;
-            margin-right: auto;
+            width: 100%;
+            max-width: 300px;
         }
 
         .control-btn {
-            padding: 18px;
-            width: 60px;
-            height: 60px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+            aspect-ratio: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            background: linear-gradient(45deg, #ffd6e7, #ffb6c1);
-            color: #4a4a4a;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-        }
-
-        .control-btn:hover {
-            transform: scale(1.1);
         }
 
         .control-btn:active {
-            transform: scale(0.95);
-            background: linear-gradient(45deg, #ffb6c1, #ffd6e7);
+            background-color: #444;
         }
-
-        #up-btn { grid-area: up; }
-        #left-btn { grid-area: left; }
-        #down-btn { grid-area: down; }
-        #right-btn { grid-area: right; }
 
         @media (max-width: 768px) {
             .control-buttons {
@@ -151,9 +114,9 @@
     </style>
 </head>
 <body>
-    <div id="game-container">
+    <div class="game-container">
         <canvas id="game-board"></canvas>
-        <div id="score">Score: 0</div>
+        <div class="score">Score: 0</div>
         <div id="high-score">High Score: 0</div>
     </div>
     <button id="start-btn">Start Game</button>
@@ -168,13 +131,22 @@
         </div>
     </div>
 
+    <div class="game-over">
+        <h2>Game Over!</h2>
+        <p>Final Score: <span id="final-score">0</span></p>
+        <button id="play-again">Play Again</button>
+    </div>
+
     <script>
         const canvas = document.getElementById('game-board');
         const ctx = canvas.getContext('2d');
         const startBtn = document.getElementById('start-btn');
-        const scoreElement = document.getElementById('score');
+        const scoreElement = document.querySelector('.score');
         const highScoreElement = document.getElementById('high-score');
         const controlButtons = document.querySelectorAll('.control-btn');
+        const gameOverDiv = document.querySelector('.game-over');
+        const finalScoreSpan = document.getElementById('final-score');
+        const playAgainBtn = document.getElementById('play-again');
 
         // Set canvas size
         let CELL_SIZE;
@@ -256,119 +228,64 @@
 
         // Draw functions
         function drawSnake() {
+            ctx.fillStyle = '#ff4444';
             snake.forEach((segment, index) => {
-                // Draw snake body
-                ctx.fillStyle = index === 0 ? '#ff6b6b' : '#ff8e8e';
                 ctx.beginPath();
-                ctx.roundRect(
-                    segment.x * CELL_SIZE,
-                    segment.y * CELL_SIZE,
-                    CELL_SIZE - 2,
-                    CELL_SIZE - 2,
-                    8
-                );
+                ctx.arc(segment.x + CELL_SIZE/2, segment.y + CELL_SIZE/2, CELL_SIZE/2 - 1, 0, Math.PI * 2);
                 ctx.fill();
-
-                // Draw snake head with cute face
+                
+                // Add eyes to head
                 if (index === 0) {
-                    const headX = segment.x * CELL_SIZE;
-                    const headY = segment.y * CELL_SIZE;
+                    ctx.fillStyle = '#fff';
+                    const eyeSize = CELL_SIZE/6;
+                    const eyeOffset = CELL_SIZE/4;
                     
-                    // Eyes
-                    ctx.fillStyle = 'white';
-                    const eyeSize = CELL_SIZE / 6;
-                    const eyeOffset = CELL_SIZE / 4;
+                    // Position eyes based on direction
+                    let leftEyeX = segment.x + CELL_SIZE/2;
+                    let leftEyeY = segment.y + CELL_SIZE/2;
+                    let rightEyeX = segment.x + CELL_SIZE/2;
+                    let rightEyeY = segment.y + CELL_SIZE/2;
                     
-                    let leftEyeX, leftEyeY, rightEyeX, rightEyeY;
                     switch(direction) {
                         case 'right':
-                            leftEyeX = segment.x * CELL_SIZE + CELL_SIZE - eyeOffset;
-                            leftEyeY = segment.y * CELL_SIZE + eyeOffset;
-                            rightEyeX = segment.x * CELL_SIZE + CELL_SIZE - eyeOffset;
-                            rightEyeY = segment.y * CELL_SIZE + CELL_SIZE - eyeOffset;
+                            leftEyeX += eyeOffset;
+                            rightEyeX += eyeOffset;
+                            leftEyeY -= eyeOffset;
+                            rightEyeY += eyeOffset;
                             break;
                         case 'left':
-                            leftEyeX = segment.x * CELL_SIZE + eyeOffset;
-                            leftEyeY = segment.y * CELL_SIZE + eyeOffset;
-                            rightEyeX = segment.x * CELL_SIZE + eyeOffset;
-                            rightEyeY = segment.y * CELL_SIZE + CELL_SIZE - eyeOffset;
+                            leftEyeX -= eyeOffset;
+                            rightEyeX -= eyeOffset;
+                            leftEyeY -= eyeOffset;
+                            rightEyeY += eyeOffset;
                             break;
                         case 'up':
-                            leftEyeX = segment.x * CELL_SIZE + eyeOffset;
-                            leftEyeY = segment.y * CELL_SIZE + eyeOffset;
-                            rightEyeX = segment.x * CELL_SIZE + CELL_SIZE - eyeOffset;
-                            rightEyeY = segment.y * CELL_SIZE + eyeOffset;
+                            leftEyeX -= eyeOffset;
+                            rightEyeX += eyeOffset;
+                            leftEyeY -= eyeOffset;
+                            rightEyeY -= eyeOffset;
                             break;
                         case 'down':
-                            leftEyeX = segment.x * CELL_SIZE + eyeOffset;
-                            leftEyeY = segment.y * CELL_SIZE + CELL_SIZE - eyeOffset;
-                            rightEyeX = segment.x * CELL_SIZE + CELL_SIZE - eyeOffset;
-                            rightEyeY = segment.y * CELL_SIZE + CELL_SIZE - eyeOffset;
+                            leftEyeX -= eyeOffset;
+                            rightEyeX += eyeOffset;
+                            leftEyeY += eyeOffset;
+                            rightEyeY += eyeOffset;
                             break;
                     }
                     
-                    // Draw eyes
                     ctx.beginPath();
-                    ctx.arc(headX + eyeOffset, headY + eyeOffset, eyeSize, 0, Math.PI * 2);
-                    ctx.arc(headX + CELL_SIZE - eyeOffset, headY + eyeOffset, eyeSize, 0, Math.PI * 2);
+                    ctx.arc(leftEyeX, leftEyeY, eyeSize, 0, Math.PI * 2);
+                    ctx.arc(rightEyeX, rightEyeY, eyeSize, 0, Math.PI * 2);
                     ctx.fill();
-
-                    // Draw pupils
-                    ctx.fillStyle = '#4a4a4a';
-                    ctx.beginPath();
-                    ctx.arc(headX + eyeOffset, headY + eyeOffset, eyeSize/2, 0, Math.PI * 2);
-                    ctx.arc(headX + CELL_SIZE - eyeOffset, headY + eyeOffset, eyeSize/2, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    // Draw cute smile
-                    ctx.strokeStyle = '#4a4a4a';
-                    ctx.lineWidth = 2;
-                    ctx.beginPath();
-                    ctx.arc(
-                        headX + CELL_SIZE/2,
-                        headY + CELL_SIZE/2,
-                        CELL_SIZE/4,
-                        0,
-                        Math.PI
-                    );
-                    ctx.stroke();
                 }
             });
         }
 
         function drawFood() {
-            if (food.x === undefined || food.y === undefined) return;
-
-            // Draw cute apple
-            const x = food.x * CELL_SIZE + CELL_SIZE/2;
-            const y = food.y * CELL_SIZE + CELL_SIZE/2;
-            const size = CELL_SIZE/2 - 2;
-
-            const popSize = food.isEaten ? size * 1.2 : size;
-
-            // Apple body
-            ctx.fillStyle = '#ff6b6b';
+            ctx.fillStyle = '#00ff00';
             ctx.beginPath();
-            ctx.arc(x, y, popSize, 0, Math.PI * 2);
+            ctx.arc(food.x + CELL_SIZE/2, food.y + CELL_SIZE/2, CELL_SIZE/2 - 1, 0, Math.PI * 2);
             ctx.fill();
-
-            // Apple leaf
-            ctx.fillStyle = '#4CAF50';
-            ctx.beginPath();
-            ctx.moveTo(x, y - popSize);
-            ctx.quadraticCurveTo(x + popSize/2, y - popSize - popSize/2, x, y - popSize - popSize/2);
-            ctx.quadraticCurveTo(x - popSize/2, y - popSize - popSize/2, x, y - popSize);
-            ctx.fill();
-
-            // Apple shine
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-            ctx.beginPath();
-            ctx.arc(x - popSize/3, y - popSize/3, popSize/4, 0, Math.PI * 2);
-            ctx.fill();
-
-            if (food.isEaten) {
-                food.isEaten = false;
-            }
         }
 
         // Game logic
@@ -430,6 +347,8 @@
             ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
             ctx.font = 'bold 20px Comic Sans MS';
             ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 40);
+            finalScoreSpan.textContent = score;
+            gameOverDiv.style.display = 'block';
         }
 
         function runGameLoop() { // Renamed game loop function
@@ -550,6 +469,11 @@
               .catch((err) => console.log('Service Worker: Registration Error: ', err));
           });
         }
+
+        playAgainBtn.addEventListener('click', () => {
+            initGame();
+            gameOverDiv.style.display = 'none';
+        });
     </script>
 </body>
 </html> 
