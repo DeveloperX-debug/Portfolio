@@ -164,8 +164,8 @@
 
         // Game constants
         const GRID_SIZE = 20;
-        const INITIAL_SPEED = 120; // Slightly faster initial speed for better responsiveness
-        const MIN_SPEED = 50;
+        const INITIAL_SPEED = 80; // Increased speed (lower number = faster)
+        const MIN_SPEED = 30; // Faster minimum speed
 
         // Game state
         let snake = [];
@@ -228,11 +228,23 @@
 
         // Draw functions
         function drawSnake() {
-            ctx.fillStyle = '#ff4444';
             snake.forEach((segment, index) => {
+                // Draw dot with glow effect
+                ctx.shadowColor = '#ff4444';
+                ctx.shadowBlur = 10;
+                ctx.fillStyle = '#ff4444';
                 ctx.beginPath();
-                ctx.arc(segment.x + CELL_SIZE/2, segment.y + CELL_SIZE/2, CELL_SIZE/2 - 1, 0, Math.PI * 2);
+                ctx.arc(
+                    segment.x * CELL_SIZE + CELL_SIZE/2,
+                    segment.y * CELL_SIZE + CELL_SIZE/2,
+                    CELL_SIZE/2 - 2,
+                    0,
+                    Math.PI * 2
+                );
                 ctx.fill();
+                
+                // Reset shadow
+                ctx.shadowBlur = 0;
                 
                 // Add eyes to head
                 if (index === 0) {
@@ -241,10 +253,10 @@
                     const eyeOffset = CELL_SIZE/4;
                     
                     // Position eyes based on direction
-                    let leftEyeX = segment.x + CELL_SIZE/2;
-                    let leftEyeY = segment.y + CELL_SIZE/2;
-                    let rightEyeX = segment.x + CELL_SIZE/2;
-                    let rightEyeY = segment.y + CELL_SIZE/2;
+                    let leftEyeX = segment.x * CELL_SIZE + CELL_SIZE/2;
+                    let leftEyeY = segment.y * CELL_SIZE + CELL_SIZE/2;
+                    let rightEyeX = segment.x * CELL_SIZE + CELL_SIZE/2;
+                    let rightEyeY = segment.y * CELL_SIZE + CELL_SIZE/2;
                     
                     switch(direction) {
                         case 'right':
@@ -282,10 +294,22 @@
         }
 
         function drawFood() {
+            // Draw food with glow effect
+            ctx.shadowColor = '#00ff00';
+            ctx.shadowBlur = 15;
             ctx.fillStyle = '#00ff00';
             ctx.beginPath();
-            ctx.arc(food.x + CELL_SIZE/2, food.y + CELL_SIZE/2, CELL_SIZE/2 - 1, 0, Math.PI * 2);
+            ctx.arc(
+                food.x * CELL_SIZE + CELL_SIZE/2,
+                food.y * CELL_SIZE + CELL_SIZE/2,
+                CELL_SIZE/2 - 2,
+                0,
+                Math.PI * 2
+            );
             ctx.fill();
+            
+            // Reset shadow
+            ctx.shadowBlur = 0;
         }
 
         // Game logic
