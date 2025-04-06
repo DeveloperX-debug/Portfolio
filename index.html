@@ -119,30 +119,78 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 60px 20px; /* More padding */
+            padding: 60px 20px;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 3.5rem); /* Responsive font size */
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
             margin-bottom: 0.5rem;
-             font-weight: 700;
+            font-weight: 700;
         }
 
         .hero p {
-            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
             color: #555;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 2rem auto;
+            font-weight: 400;
+        }
+
+        .hero .ai-highlight {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            color: #007aff;
+            font-weight: 500;
+            margin-top: -1rem;
+            margin-bottom: 2.5rem;
         }
 
         /* About Section */
         .about {
-             text-align: center;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
         }
 
-         .about h2 {
-             margin-bottom: 2rem;
-         }
+        .about h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-highlight {
+            background: rgba(0, 122, 255, 0.08);
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border: 1px solid rgba(0, 122, 255, 0.1);
+        }
+
+        .skills-highlight h4 {
+            color: #007aff;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .skills-highlight ul {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skills-highlight li {
+            background: #fff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 1px solid #eee;
+        }
 
         /* Projects Section */
         .projects h2 {
@@ -366,30 +414,46 @@
     </style>
 </head>
 <body>
-    <header class="container">
-        <nav>
-            <div class="logo">Prem Saraf</div>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="logo">Prem Saraf</div>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <main class="container">
-        <!-- Hero Section -->
-        <section id="hero" class="hero glass-section">
-            <h1>Hi, I'm Prem Saraf</h1>
-            <p>A passionate developer exploring the world of web development and creating engaging digital experiences.</p>
-            <!-- <a href="#projects" class="btn project-card-btn">View My Work</a> --> <!-- Button Removed -->
+        <section class="hero glass-section">
+            <h1>Prem Saraf</h1>
+            <p>Full-Stack Developer specializing in creating dynamic web applications and leveraging cutting-edge AI tools for enhanced development.</p>
+            <p class="ai-highlight">⚡️ Building the future with Generative AI, Prompt Engineering, and AI-first tools like Cursor, Sonnet 3.7 & Gemini 2.5 Pro ⚡️</p>
+            <a href="#projects" class="btn" style="background-color: #007aff; color: white; padding: 12px 30px; border-radius: 30px; font-weight: 500;">View My Work</a>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="about glass-section">
             <h2>About Me</h2>
-            <p>I am currently a student diving deep into web technologies. I enjoy building interactive applications and learning new things every day. My journey involves exploring both front-end aesthetics and back-end logic.</p>
-            <!-- Add more about yourself here if you like -->
+            <p>I'm a passionate developer focused on building efficient and user-friendly web applications. I have a strong foundation in both front-end and back-end technologies.</p>
+            <p>A significant part of my development process involves **AI collaboration**. I actively utilize tools like the **Cursor IDE** and leverage powerful language models such as **Anthropic's Sonnet 3.7** and **Google's Gemini 2.5 Pro**. This AI-first approach allows me to accelerate development, explore innovative solutions, and enhance code quality.</p>
+            <p>My expertise extends into **Prompt Engineering** and applying **Generative AI** concepts to solve real-world problems, create unique features, and optimize workflows. I believe AI is a powerful partner in modern software development.</p>
+
+            <div class="skills-highlight">
+                <h4>Key AI & Development Skills:</h4>
+                <ul>
+                    <li>Prompt Engineering</li>
+                    <li>Generative AI Applications</li>
+                    <li>AI Model Collaboration (Sonnet, Gemini)</li>
+                    <li>AI-Powered Development (Cursor IDE)</li>
+                    <li>Full-Stack Web Development</li>
+                    <li>JavaScript / Python</li>
+                    <li>HTML / CSS</li>
+                    <li>Frameworks (e.g., Django)</li>
+                    <li>API Integration</li>
+                    <li>Database Management</li>
+                </ul>
+            </div>
         </section>
 
         <!-- Projects Section -->
@@ -520,7 +584,7 @@
                  </a>
                 </div>
         </section>
-    </main>
+    </div>
 
     <footer>
         <p>&copy; 2024 Prem Saraf. All rights reserved.</p>
