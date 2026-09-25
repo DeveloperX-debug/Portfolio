@@ -568,37 +568,47 @@ footer {
     padding: 0 1.15rem;
   }
 
-  /* Compact Mobile Header with Centered Nav Pills */
+  /* Compact Mobile Header with Perfectly Centered Nav Pills */
   .nav-wrap {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     height: auto;
     padding: 0.75rem 0;
     gap: 0.6rem;
-    align-items: center;
-    text-align: center;
+    width: 100%;
+    margin: 0 auto;
   }
 
   .brand-logo {
     font-size: 1.1rem;
     text-align: center;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
   }
 
   nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-  }
-
-  nav::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    text-align: center;
+    margin: 0 auto;
   }
 
   nav ul {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
-    width: max-content;
-    padding-bottom: 2px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
   }
 
   nav a {
@@ -610,6 +620,7 @@ footer {
     font-size: 0.82rem;
     font-weight: 500;
     color: var(--text-secondary);
+    text-align: center;
   }
 
   nav a:active, nav a:hover {
