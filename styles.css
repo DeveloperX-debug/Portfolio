@@ -532,95 +532,58 @@ footer {
     padding: 3.5rem 0;
   }
 
-  .hero-section {
-    padding-top: 7rem;
-    padding-bottom: 3.5rem;
-  }
-
-  .nav-wrap {
-    height: 60px;
-  }
-
-  nav ul {
-    gap: 1rem;
-  }
-
-  nav a {
-    font-size: 0.85rem;
-  }
-
-  .nav-actions {
-    display: none; /* Hide top GitHub button on tablets to keep header clean */
-  }
-
-  .projects-grid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.25rem;
-  }
-
-  .contact-wrap {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
   .container {
     padding: 0 1.15rem;
   }
 
-  /* Compact Mobile Header with Perfectly Centered Nav Pills */
+  /* Hide desktop GitHub button */
+  .nav-actions {
+    display: none;
+  }
+
+  /* Mobile Header — Column + Centered */
   .nav-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
     height: auto;
-    padding: 0.75rem 0;
+    padding: 0.75rem 1rem;
     gap: 0.6rem;
-    width: 100%;
-    margin: 0 auto;
   }
 
   .brand-logo {
     font-size: 1.1rem;
     text-align: center;
-    display: block;
-    width: 100%;
-    margin: 0 auto;
   }
 
   nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    text-align: center;
-    margin: 0 auto;
   }
 
   nav ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    margin: 0 auto;
+    gap: 0.5rem;
     padding: 0;
+    width: 100%;
+  }
+
+  nav li {
+    list-style: none;
   }
 
   nav a {
     display: inline-block;
-    padding: 0.35rem 0.75rem;
+    padding: 0.4rem 0.8rem;
     background-color: var(--bg-subtle);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-full);
     font-size: 0.82rem;
     font-weight: 500;
     color: var(--text-secondary);
-    text-align: center;
+    white-space: nowrap;
   }
 
   nav a:active, nav a:hover {
@@ -629,9 +592,9 @@ footer {
     border-color: var(--accent-black);
   }
 
-  /* Hero Section on Mobile */
+  /* Hero */
   .hero-section {
-    padding-top: 8.5rem;
+    padding-top: 8rem;
     padding-bottom: 3rem;
   }
 
@@ -644,20 +607,23 @@ footer {
     width: 100%;
   }
 
-  /* Projects Grid on Mobile */
+  /* Projects */
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
   .project-img-holder {
     height: 180px;
   }
 
-  .project-actions {
-    flex-direction: row;
+  /* Skills */
+  .skills-grid {
+    grid-template-columns: 1fr;
   }
 
-  .skills-grid {
+  /* Contact */
+  .contact-wrap {
     grid-template-columns: 1fr;
   }
 }
