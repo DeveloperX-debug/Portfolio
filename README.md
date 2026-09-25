@@ -1,10 +1,20 @@
-# Prem Saraf - Portfolio & Frontier AI Showcase
+# Prem Saraf | Full-Stack Engineer & AI Architect Portfolio
 
-![Prem Saraf Portfolio](snake-pixel-art.png)
+<div align="center">
 
-Welcome to the personal portfolio repository of **Prem Saraf** ([@DeveloperX-debug](https://github.com/DeveloperX-debug)).
+# 🌐 [👉 CLICK HERE TO VIEW THE LIVE WEBSITE 👈](https://developerx-debug.github.io/Portfolio/)
 
-This modern portfolio highlights expertise in **Frontier LLM Architectures**, **Agentic Workflows**, **RAG Indexing**, and **Full-Stack Web Development**.
+[![Live Portfolio](https://img.shields.io/badge/Live_Site-developerx--debug.github.io%2FPortfolio-6366F1?style=for-the-badge&logo=githubpages&logoColor=white)](https://developerx-debug.github.io/Portfolio/)
+[![GitHub Profile](https://img.shields.io/badge/GitHub-DeveloperX--debug-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DeveloperX-debug)
+[![Status](https://img.shields.io/badge/Status-Operational-10B981?style=for-the-badge)](https://developerx-debug.github.io/Portfolio/)
+
+</div>
+
+---
+
+> **Note**: To view the full interactive dark-theme website with live LLM prompt sandbox, model benchmark matrix, and animated neural canvas background, please visit the **Live Web Link**:
+>
+> 🔗 **[https://developerx-debug.github.io/Portfolio/](https://developerx-debug.github.io/Portfolio/)**
 
 ---
 
@@ -21,11 +31,14 @@ This modern portfolio highlights expertise in **Frontier LLM Architectures**, **
 
 - **AI & LLM Tooling**: Cursor IDE, LangChain, LlamaIndex, Qdrant Vector DB, Instructor, Ollama, vLLM.
 - **Frontend & UI**: HTML5 Canvas, CSS3 Glassmorphism & Custom Keyframe Animations, Vanilla ES6+ JS.
-- **Backend & Systems**: Python, Django, FastAPI, RESTful APIs, Git / GitHub CI.
+- **Backend & Systems**: Python, Django, FastAPI, RESTful APIs, Git / GitHub Actions CI/CD.
 
 ---
 
-## 🌐 Live Website
+## 📁 Repository Structure
 
-- **Portfolio URL**: [https://developerx-debug.github.io/Portfolio/](https://developerx-debug.github.io/Portfolio/)
-- **GitHub Username**: [DeveloperX-debug](https://github.com/DeveloperX-debug)
+- `index.html` - Master HTML5 page with glassmorphism layout, LLM matrix & prompt sandbox.
+- `styles.css` - Ultra-modern dark theme stylesheet & animations.
+- `app.js` - Interactive JavaScript engine (Neural canvas background, benchmark filters, streaming prompt terminal).
+- `.nojekyll` - Ensures GitHub Pages serves all assets directly without Jekyll processing delays.
+- `.github/workflows/deploy.yml` - Automated GitHub Actions workflow for instant GitHub Pages deployment.
