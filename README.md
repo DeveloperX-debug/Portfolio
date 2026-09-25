@@ -1,47 +1,31 @@
-# Snake Game Portfolio
+# Prem Saraf - Portfolio & Frontier AI Showcase
 
-A modern portfolio website featuring a classic Snake game implementation. The portfolio showcases my projects, with the main highlight being an interactive Snake game that works on both desktop and mobile devices.
+![Prem Saraf Portfolio](snake-pixel-art.png)
 
-## Features
+Welcome to the personal portfolio repository of **Prem Saraf** ([@DeveloperX-debug](https://github.com/DeveloperX-debug)).
 
-### Snake Game
-- Classic snake gameplay with modern visuals
-- Responsive design that works on all devices
-- Touch/swipe controls for mobile devices
-- Keyboard controls for desktop
-- Progressive difficulty increase
-- Score tracking
-- Wall wrapping (snake passes through walls)
+This modern portfolio highlights expertise in **Frontier LLM Architectures**, **Agentic Workflows**, **RAG Indexing**, and **Full-Stack Web Development**.
 
-### Portfolio
-- Modern, clean design with frosted glass effects
-- Responsive layout
-- Project showcase section
-- Contact form
-- Social media links
+---
 
-## How to Play Snake
+## ⚡ Key Highlights & LLM Ecosystem
 
-### Desktop Controls
-- Use arrow keys (←↑→↓) to control the snake's direction
+- **Frontier LLM Integrations**: Google Gemini 1.5 Pro & Flash (2M Token Context), Anthropic Claude 3.5 Sonnet (SWE-bench SOTA), OpenAI GPT-4o & o1, Meta Llama 3.1 (405B / 70B), DeepSeek V3 / R1, Qwen 2.5.
+- **Interactive Live Prompt Sandbox**: Real-time simulated token streaming terminal with latency and token telemetry.
+- **Model Comparison Matrix**: Benchmark progress tracking across MMLU-Pro, HumanEval, and Math reasoning.
+- **Full-Stack Web Projects**: Django e-commerce & hotel management backends, JavaScript games (Snake PWA, Unfinished Clock, Tic-Tac-Toe, Calculator), and modern responsive web apps.
 
-### Mobile Controls
-- Swipe in any direction to change the snake's direction
+---
 
-## Technologies Used
+## 🛠 Tech Stack
 
-- HTML5 Canvas
-- CSS3 with modern effects
-- Vanilla JavaScript
-- Responsive Design
-- Touch Events API
+- **AI & LLM Tooling**: Cursor IDE, LangChain, LlamaIndex, Qdrant Vector DB, Instructor, Ollama, vLLM.
+- **Frontend & UI**: HTML5 Canvas, CSS3 Glassmorphism & Custom Keyframe Animations, Vanilla ES6+ JS.
+- **Backend & Systems**: Python, Django, FastAPI, RESTful APIs, Git / GitHub CI.
 
-## Setup
+---
 
-1. Clone the repository
-2. Open `index.html` in your browser
-3. Navigate to the Snake game through the portfolio
+## 🌐 Live Website
 
-## Development
-
-Feel free to fork this repository and make your own changes. The code is well-commented and structured for easy modification. 
+- **Portfolio URL**: [https://developerx-debug.github.io/Portfolio/](https://developerx-debug.github.io/Portfolio/)
+- **GitHub Username**: [DeveloperX-debug](https://github.com/DeveloperX-debug)
