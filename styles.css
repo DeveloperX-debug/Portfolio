@@ -177,6 +177,7 @@ nav a:hover {
 section {
   padding: 5rem 0;
   border-bottom: 1px solid var(--border-color);
+  scroll-margin-top: 6rem;
 }
 
 section:last-of-type {
@@ -443,15 +444,12 @@ section:last-of-type {
 
 /* Contact Section */
 .contact-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  align-items: center;
+  display: block;
 }
 
 .contact-cards {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
   gap: 0.85rem;
 }
 
@@ -622,10 +620,6 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  /* Contact */
-  .contact-wrap {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 400px) {

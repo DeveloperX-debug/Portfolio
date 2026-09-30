@@ -1,1 +1,1 @@
-pygame==2.5.2 
+# This static HTML/CSS portfolio has no Python dependencies.
