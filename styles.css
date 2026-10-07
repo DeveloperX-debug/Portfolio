@@ -248,13 +248,18 @@ nav a.nav-active::after {
 }
 
 .dark-mode .btn-dark {
-  background-color: #f0f6fc;
-  color: #0d1117;
+  background-color: #21262d;
+  color: #f0f6fc;
+  border: 1px solid #38424d;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .dark-mode .btn-dark:hover, .dark-mode .btn-dark:active {
-  background-color: #ffffff;
-  color: #0d1117;
+  background-color: #30363d;
+  color: #ffffff;
+  border-color: #58a6ff;
+  box-shadow: 0 4px 12px rgba(88, 166, 255, 0.15);
+  transform: translateY(-1px);
 }
 
 .btn-outline {
