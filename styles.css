@@ -238,12 +238,23 @@ nav a.nav-active::after {
 
 .btn-dark {
   background-color: var(--accent-black);
-  color: #ffffff;
+  color: var(--bg-main);
 }
 
 .btn-dark:hover, .btn-dark:active {
   background-color: #1e293b;
+  color: #ffffff;
   transform: translateY(-1px);
+}
+
+.dark-mode .btn-dark {
+  background-color: #f0f6fc;
+  color: #0d1117;
+}
+
+.dark-mode .btn-dark:hover, .dark-mode .btn-dark:active {
+  background-color: #ffffff;
+  color: #0d1117;
 }
 
 .btn-outline {
@@ -670,7 +681,7 @@ footer {
 
   nav a:active, nav a:hover, nav a.nav-active {
     background-color: var(--accent-black);
-    color: #ffffff;
+    color: var(--bg-main);
     border-color: var(--accent-black);
   }
 
